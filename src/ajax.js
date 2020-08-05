@@ -841,5 +841,13 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
 	};
 } );
 
+// Patching CVE-2015-9251
+// More info https://www.cadence-labs.com/2018/07/magento-outdated-jquery-version-how-to-patch-without-upgrading-cve-2015-9251/
+jQuery.ajaxPrefilter( function( s ) {
+    if ( s.crossDomain ) {
+        s.contents.script = false;
+    }
+} );
+
 return jQuery;
 } );

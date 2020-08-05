@@ -9,7 +9,7 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-05-20T17:23Z
+ * Date: 2020-08-05T16:24Z
  */
 
 (function( global, factory ) {
@@ -8812,6 +8812,14 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
 			success: callback
 		}, jQuery.isPlainObject( url ) && url ) );
 	};
+} );
+
+// Patching CVE-2015-9251
+// More info https://www.cadence-labs.com/2018/07/magento-outdated-jquery-version-how-to-patch-without-upgrading-cve-2015-9251/
+jQuery.ajaxPrefilter( function( s ) {
+    if ( s.crossDomain ) {
+        s.contents.script = false;
+    }
 } );
 
 
